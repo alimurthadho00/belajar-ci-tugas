@@ -23,6 +23,9 @@ if (session()->getFlashData('failed')) {
 <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#addModal">
     Tambah Data
 </button>
+<a type="button" class="btn btn-success" href="<?= base_url() ?>produk/download">
+    Download Data 
+</a>
 <!-- Table with stripped rows -->
 <table id="ProdukTable" class="table datatable">
     <thead>
@@ -149,7 +152,7 @@ if (session()->getFlashData('failed')) {
 </div>
 <!-- Add Modal End -->
 
-<script>
+<!--script>
     $(document).ready(function() {
         $('#ProdukTable').DataTable({
             pageLength: 10,
@@ -160,7 +163,7 @@ if (session()->getFlashData('failed')) {
             }
         });
     });
-</script>
+</script-->
 
 
 <?= $this->endSection() ?>

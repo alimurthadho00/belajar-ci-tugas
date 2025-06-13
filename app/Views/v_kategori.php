@@ -110,7 +110,7 @@ if (session()->getFlashData('failed')) {
 </div>
 <!-- Add Modal End -->
 
-<script>
+<!--script>
     $(document).ready(function() {
         $('#KategoriTable').DataTable({
             pageLength: 10,
@@ -121,6 +121,6 @@ if (session()->getFlashData('failed')) {
             }
         });
     });
-</script>
+</script-->
 
 <?= $this->endSection() ?>
