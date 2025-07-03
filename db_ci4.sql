@@ -75,6 +75,28 @@ INSERT INTO `product` (`id`, `nama`, `harga`, `jumlah`, `foto`, `created_at`, `u
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `product_category`
+--
+
+CREATE TABLE `product_category` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data untuk tabel `product_category`
+--
+
+INSERT INTO `product_category` (`id`, `nama`, `created_at`, `updated_at`) VALUES
+(1, 'Laptop', '2025-07-02 20:26:52', '2025-07-02 20:26:52'),
+(2, 'Printer', '2025-07-02 20:26:52', '2025-07-02 20:26:52');
+
+-- --------------------------------------------------------
+
+
+--
 -- Table structure for table `transaction`
 --
 

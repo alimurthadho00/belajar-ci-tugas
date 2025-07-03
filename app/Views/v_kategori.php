@@ -36,7 +36,7 @@ if (session()->getFlashData('failed')) {
         <?php foreach ($kategori as $index => $kategori) : ?>
             <tr>
                 <th scope="row"><?php echo $index + 1 ?></th>
-                <td><?php echo $kategori['name'] ?></td>
+                <td><?php echo $kategori['nama'] ?></td>
                 <td>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal-<?= $kategori['id'] ?>">
                         Ubah
@@ -59,7 +59,7 @@ if (session()->getFlashData('failed')) {
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Nama</label>
-                        <input type="text" name="name" class="form-control" id="name" value="<?= $kategori['name'] ?>" placeholder="Nama Kategori" required>
+                        <input type="text" name="nama" class="form-control" id="nama" value="<?= $kategori['nama'] ?>" placeholder="Nama Kategori" required>
                     </div>
                     
                 </div>
