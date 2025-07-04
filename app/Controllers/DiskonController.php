@@ -60,17 +60,25 @@ class DiskonController extends BaseController
         return view('diskon', $data);
     }
 
-    public function update($id)
-    {
-        if (session()->get('role') != 'admin') return redirect()->to('/');
+   public function update($id)
+{
+    if (session()->get('role') != 'admin') return redirect()->to('/');
 
-        $this->diskonModel->update($id, [
-            'nominal' => $this->request->getPost('nominal'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
+    $nominalBaru = $this->request->getPost('nominal');
 
-        return redirect()->to('diskon')->with('success', 'Diskon berhasil diupdate!');
+    $this->diskonModel->update($id, [
+        'nominal' => $nominalBaru,
+        'updated_at' => date('Y-m-d H:i:s'),
+    ]);
+
+    // ✅ Cek apakah tanggal diskon ini hari ini
+    $diskon = $this->diskonModel->find($id);
+    if ($diskon && $diskon['tanggal'] === date('Y-m-d')) {
+        session()->set('diskon_nominal', $nominalBaru);
     }
+
+    return redirect()->to('diskon')->with('success', 'Diskon berhasil diupdate!');
+}
 
     public function delete($id)
 {
