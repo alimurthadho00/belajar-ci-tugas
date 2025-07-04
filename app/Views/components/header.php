@@ -16,6 +16,17 @@
         </form>
     </div><!-- End Search Bar -->
 
+    <?php if (session()->has('diskon_nominal')) : ?>
+                <li class="nav-item d-none d-md-block">
+                    <div class="nav-link">
+                        <span class="badge bg-success px-3 py-2">
+                            🎉 Diskon Hari Ini: <strong>Rp<?= number_format(session('diskon_nominal'), 0, ',', '.') ?>/item</strong>
+                        </span>
+                    </div>
+                </li>
+            <?php endif; ?>
+            <!-- End diskkon -->
+
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
 

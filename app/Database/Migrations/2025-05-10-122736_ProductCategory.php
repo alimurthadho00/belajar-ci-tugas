@@ -25,11 +25,11 @@ class ProductCategory extends Migration
             'updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('product_category');
+        $this->forge->createTable('productcategory');
     }
 
     public function down()
     {
-        $this->forge->dropTable('product_category');
+        $this->forge->dropTable('productcategory');
     }
 }

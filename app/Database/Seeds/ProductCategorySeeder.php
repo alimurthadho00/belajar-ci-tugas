@@ -18,6 +18,6 @@ class ProductCategorySeeder extends Seeder
         ];
 
         // Using Query Builder
-        $this->db->table('product_category')->insertBatch($data);
+        $this->db->table('productcategory')->insertBatch($data);
     }
 }

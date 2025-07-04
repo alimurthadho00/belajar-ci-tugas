@@ -33,13 +33,20 @@ class TransaksiController extends BaseController
 
     public function cart_add()
     {
-        $this->cart->insert(array(
-            'id'        => $this->request->getPost('id'),
-            'qty'       => 1,
-            'price'     => $this->request->getPost('harga'),
-            'name'      => $this->request->getPost('nama'),
-            'options'   => array('foto' => $this->request->getPost('foto'))
-        ));
+        $hargaAsli = $this->request->getPost('harga');
+        $diskon = session()->get('diskon_nominal') ?? 0;
+        $hargaSetelahDiskon = max(0, $hargaAsli - $diskon); // Jangan sampai minus
+
+        $this->cart->insert([
+            'id'    => $this->request->getPost('id'),
+            'qty'   => 1,
+            'price' => $hargaSetelahDiskon, // ← Sudah diskon!
+            'name'  => $this->request->getPost('nama'),
+            'options' => [
+                'foto' => $this->request->getPost('foto'),
+                'diskon' => $diskon // simpan untuk referensi
+            ]
+        ]);
         session()->setflashdata('success', 'Produk berhasil ditambahkan ke keranjang. (<a href="' . base_url() . 'keranjang">Lihat</a>)');
         return redirect()->to(base_url('/'));
     }
@@ -160,12 +167,11 @@ class TransaksiController extends BaseController
                 'transaction_id' => $last_insert_id,
                 'product_id' => $value['id'],
                 'jumlah' => $value['qty'],
-                'diskon' => 0,
+                'diskon' => $value['options']['diskon'] ?? 0,
                 'subtotal_harga' => $value['qty'] * $value['price'],
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
             ];
-
             $this->transaction_detail->insert($dataFormDetail);
         }
 
