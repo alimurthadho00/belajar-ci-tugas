@@ -45,6 +45,11 @@ class DiskonController extends BaseController
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
+        // ✅ Tambahkan ini agar session diskon langsung aktif jika hari ini
+        if ($tanggal === date('Y-m-d')) {
+        session()->set('diskon_nominal', $nominal);
+        }
+
         return redirect()->to('diskon')->with('success', 'Diskon berhasil ditambahkan!');
     }
 
@@ -68,9 +73,21 @@ class DiskonController extends BaseController
     }
 
     public function delete($id)
-    {
-        if (session()->get('role') != 'admin') return redirect()->to('/');
+{
+    $diskon = $this->diskonModel->find($id);
+
+    
+    if ($diskon) {
         $this->diskonModel->delete($id);
-        return redirect()->to('diskon')->with('success', 'Diskon berhasil dihapus!');
+
+        // 🔥 Cek jika diskon yang dihapus adalah hari ini
+        if ($diskon['tanggal'] == date('Y-m-d')) {
+            session()->remove('diskon_nominal');
+        }
+
+        return redirect()->to('diskon')->with('success', 'Diskon berhasil dihapus.');
     }
+
+    return redirect()->to('diskon')->with('error', 'Diskon tidak ditemukan.');
+}
 }
